@@ -287,3 +287,65 @@ window.onload = function () {
   populateCategories();
   filterQuotes();
 };
+
+
+
+function simulateServerFetch() {
+  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5")
+    .then(response => response.json())
+    .then(serverData => {
+      const serverQuotes = serverData.map(post => ({
+        text: post.title,
+        category: post.body.substring(0, 15) || "Server"
+      }));
+      resolveConflictsAndSync(serverQuotes);
+    })
+    .catch(error => {
+      console.error("Failed to sync with server:", error);
+    });
+}
+
+
+function resolveConflictsAndSync(serverQuotes) {
+  let changesMade = false;
+
+  serverQuotes.forEach(serverQuote => {
+    const localIndex = quotes.findIndex(q => q.text === serverQuote.text);
+
+    if (localIndex === -1) {
+      quotes.push(serverQuote);
+      changesMade = true;
+    } else {
+      const localQuote = quotes[localIndex];
+      if (localQuote.category !== serverQuote.category) {
+        // Conflict: Server wins
+        quotes[localIndex] = serverQuote;
+        changesMade = true;
+        showNotification(`Conflict resolved for: "${serverQuote.text}"`);
+      }
+    }
+  });
+
+  if (changesMade) {
+    saveQuotesToLocal();
+    populateCategories();
+    filterQuotes();
+    showNotification("Quotes synced with server.");
+  }
+}
+
+
+function showNotification(message) {
+  const note = document.getElementById("notification");
+  note.textContent = message;
+  note.style.display = "block";
+  setTimeout(() => {
+    note.style.display = "none";
+  }, 3000);
+}
+
+// Start syncing every 30 seconds
+setInterval(simulateServerFetch, 30000);
+
+// Optional: initial fetch on page load
+simulateServerFetch();
