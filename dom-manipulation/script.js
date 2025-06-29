@@ -4,7 +4,8 @@ const categoryFilter = document.getElementById("categoryFilter");
 script.js doesn't contain: ["fetchQuotesFromServer"]
 script.js doesn't contain: ["await", "async"]
 script.js doesn't contain: ["method", "POST", "headers", "Content-Type"]
-  
+script.js doesn't contain: ["syncQuotes"]
+
 // Load from localStorage
 window.onload = () => {
   const stored = localStorage.getItem("quotes");
