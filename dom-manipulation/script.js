@@ -1,7 +1,8 @@
 let quotes = [];
 const quoteDisplay = document.getElementById("quoteDisplay");
 const categoryFilter = document.getElementById("categoryFilter");
-
+script.js doesn't contain: ["fetchQuotesFromServer"]
+  
 // Load from localStorage
 window.onload = () => {
   const stored = localStorage.getItem("quotes");
