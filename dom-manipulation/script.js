@@ -6,6 +6,8 @@ script.js doesn't contain: ["await", "async"]
 script.js doesn't contain: ["method", "POST", "headers", "Content-Type"]
 script.js doesn't contain: ["syncQuotes"]
 script.js doesn't contain: ["Quotes synced with server!"]
+script.js doesn't contain: ["createAddQuoteForm"]
+
 
 // Load from localStorage
 window.onload = () => {
