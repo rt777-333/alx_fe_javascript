@@ -2,6 +2,7 @@ let quotes = [];
 const quoteDisplay = document.getElementById("quoteDisplay");
 const categoryFilter = document.getElementById("categoryFilter");
 script.js doesn't contain: ["fetchQuotesFromServer"]
+script.js doesn't contain: ["await", "async"]
   
 // Load from localStorage
 window.onload = () => {
